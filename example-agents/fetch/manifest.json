@@ -1,0 +1,16 @@
+{
+  "id": "fetch",
+  "name": "Web Fetch",
+  "version": "0.1.0",
+  "description": "Lets agents read web pages.",
+  "author": "Model Context Protocol",
+  "homepage": "https://github.com/modelcontextprotocol/servers",
+  "runtime": {
+    "type": "mcp-stdio",
+    "command": "uvx",
+    "args": ["mcp-server-fetch"],
+    "requires": ["python3"]
+  },
+  "setup": [],
+  "permissions": ["internet"]
+}

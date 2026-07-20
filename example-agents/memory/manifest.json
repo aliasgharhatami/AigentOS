@@ -1,0 +1,16 @@
+{
+  "id": "memory",
+  "name": "Memory",
+  "version": "0.1.0",
+  "description": "Gives your agents long-term memory across sessions.",
+  "author": "Model Context Protocol",
+  "homepage": "https://github.com/modelcontextprotocol/servers",
+  "runtime": {
+    "type": "mcp-stdio",
+    "command": "npx",
+    "args": ["-y", "@modelcontextprotocol/server-memory"],
+    "requires": ["node"]
+  },
+  "setup": [],
+  "permissions": []
+}

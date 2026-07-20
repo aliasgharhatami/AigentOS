@@ -1,0 +1,12 @@
+{
+  "name": "aigentos",
+  "version": "0.2.0",
+  "description": "AigentOS — the execution layer for AI-native computing",
+  "private": true,
+  "scripts": {
+    "pack:all": "node tools/pack.js example-agents/filesystem && node tools/pack.js example-agents/memory && node tools/pack.js example-agents/fetch"
+  },
+  "dependencies": {
+    "adm-zip": "^0.5.16"
+  }
+}

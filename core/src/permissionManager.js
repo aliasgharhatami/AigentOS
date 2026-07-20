@@ -42,6 +42,13 @@ class PermissionManager {
     this.grants.get(agentId)?.delete(permission);
   }
 
+  // Called when an agent is uninstalled — its grants should not linger and
+  // silently reapply if the user reinstalls it later.
+  forget(agentId) {
+    this.grants.delete(agentId);
+    this.declarations.delete(agentId);
+  }
+
   has(agentId, permission) {
     return this.grants.get(agentId)?.has(permission) ?? false;
   }

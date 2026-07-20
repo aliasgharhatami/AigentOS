@@ -1,0 +1,24 @@
+{
+  "id": "filesystem",
+  "name": "File Manager",
+  "version": "0.1.0",
+  "description": "Read, search and organise files in a folder you choose.",
+  "author": "Model Context Protocol",
+  "homepage": "https://github.com/modelcontextprotocol/servers",
+  "runtime": {
+    "type": "mcp-stdio",
+    "command": "npx",
+    "args": ["-y", "@modelcontextprotocol/server-filesystem", "{{folder}}"],
+    "requires": ["node"]
+  },
+  "setup": [
+    {
+      "name": "folder",
+      "label": "Which folder should this agent be allowed to access?",
+      "type": "folder",
+      "required": true,
+      "help": "The agent can only see files inside this folder, nothing else on your computer."
+    }
+  ],
+  "permissions": ["filesystem"]
+}

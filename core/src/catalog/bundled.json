@@ -1,0 +1,191 @@
+{
+  "version": 1,
+  "updated": "2026-07-20",
+  "source": "Curated from the official Model Context Protocol servers repository",
+  "agents": [
+    {
+      "id": "filesystem",
+      "name": "File Manager",
+      "description": "Read, write, search and organise files in a folder you choose.",
+      "category": "Files",
+      "keywords": ["file", "folder", "document", "read", "write", "search", "organise", "disk"],
+      "author": "Model Context Protocol",
+      "homepage": "https://github.com/modelcontextprotocol/servers",
+      "runtime": {
+        "type": "mcp-stdio",
+        "command": "npx",
+        "args": ["-y", "@modelcontextprotocol/server-filesystem", "{{folder}}"],
+        "requires": ["node"]
+      },
+      "setup": [
+        {
+          "name": "folder",
+          "label": "Which folder should this agent be allowed to access?",
+          "type": "folder",
+          "required": true,
+          "help": "The agent can only see files inside this folder, nothing else on your computer."
+        }
+      ],
+      "permissions": ["filesystem"]
+    },
+    {
+      "id": "memory",
+      "name": "Memory",
+      "description": "Gives your agents long-term memory that persists across sessions.",
+      "category": "Core",
+      "keywords": ["memory", "remember", "recall", "knowledge", "notes", "persistent"],
+      "author": "Model Context Protocol",
+      "homepage": "https://github.com/modelcontextprotocol/servers",
+      "runtime": {
+        "type": "mcp-stdio",
+        "command": "npx",
+        "args": ["-y", "@modelcontextprotocol/server-memory"],
+        "requires": ["node"]
+      },
+      "setup": [],
+      "permissions": []
+    },
+    {
+      "id": "fetch",
+      "name": "Web Fetch",
+      "description": "Reads web pages and converts them to text an agent can work with.",
+      "category": "Web",
+      "keywords": ["web", "internet", "page", "url", "website", "scrape", "read online"],
+      "author": "Model Context Protocol",
+      "homepage": "https://github.com/modelcontextprotocol/servers",
+      "runtime": {
+        "type": "mcp-stdio",
+        "command": "uvx",
+        "args": ["mcp-server-fetch"],
+        "requires": ["python3"]
+      },
+      "setup": [],
+      "permissions": ["internet"]
+    },
+    {
+      "id": "git",
+      "name": "Git",
+      "description": "Read, search and manage a Git repository on your computer.",
+      "category": "Development",
+      "keywords": ["git", "repository", "code", "commit", "version control", "branch"],
+      "author": "Model Context Protocol",
+      "homepage": "https://github.com/modelcontextprotocol/servers",
+      "runtime": {
+        "type": "mcp-stdio",
+        "command": "uvx",
+        "args": ["mcp-server-git", "--repository", "{{repository}}"],
+        "requires": ["python3", "git"]
+      },
+      "setup": [
+        {
+          "name": "repository",
+          "label": "Path to your Git repository",
+          "type": "folder",
+          "required": true
+        }
+      ],
+      "permissions": ["filesystem"]
+    },
+    {
+      "id": "sequential-thinking",
+      "name": "Deep Thinking",
+      "description": "Helps agents break hard problems into steps and reason through them.",
+      "category": "Core",
+      "keywords": ["thinking", "reasoning", "planning", "analysis", "problem solving"],
+      "author": "Model Context Protocol",
+      "homepage": "https://github.com/modelcontextprotocol/servers",
+      "runtime": {
+        "type": "mcp-stdio",
+        "command": "npx",
+        "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"],
+        "requires": ["node"]
+      },
+      "setup": [],
+      "permissions": []
+    },
+    {
+      "id": "github",
+      "name": "GitHub",
+      "description": "Work with GitHub repositories, issues and pull requests.",
+      "category": "Development",
+      "keywords": ["github", "repository", "issue", "pull request", "code", "open source"],
+      "author": "GitHub",
+      "homepage": "https://github.com/github/github-mcp-server",
+      "runtime": {
+        "type": "mcp-stdio",
+        "command": "npx",
+        "args": ["-y", "@modelcontextprotocol/server-github"],
+        "env": { "GITHUB_PERSONAL_ACCESS_TOKEN": "{{token}}" },
+        "requires": ["node"]
+      },
+      "setup": [
+        {
+          "name": "token",
+          "label": "GitHub personal access token",
+          "type": "secret",
+          "required": true,
+          "help": "Create one at github.com/settings/tokens. It is stored encrypted on your computer."
+        }
+      ],
+      "permissions": ["internet"]
+    },
+    {
+      "id": "sqlite",
+      "name": "SQLite Database",
+      "description": "Query and explore a SQLite database file.",
+      "category": "Data",
+      "keywords": ["database", "sql", "sqlite", "query", "data", "table"],
+      "author": "Model Context Protocol",
+      "homepage": "https://github.com/modelcontextprotocol/servers",
+      "runtime": {
+        "type": "mcp-stdio",
+        "command": "uvx",
+        "args": ["mcp-server-sqlite", "--db-path", "{{database}}"],
+        "requires": ["python3"]
+      },
+      "setup": [
+        {
+          "name": "database",
+          "label": "Path to your SQLite database file",
+          "type": "file",
+          "required": true
+        }
+      ],
+      "permissions": ["filesystem"]
+    },
+    {
+      "id": "time",
+      "name": "Time & Timezones",
+      "description": "Lets agents know the current time and convert between timezones.",
+      "category": "Utilities",
+      "keywords": ["time", "clock", "timezone", "date", "schedule"],
+      "author": "Model Context Protocol",
+      "homepage": "https://github.com/modelcontextprotocol/servers",
+      "runtime": {
+        "type": "mcp-stdio",
+        "command": "uvx",
+        "args": ["mcp-server-time"],
+        "requires": ["python3"]
+      },
+      "setup": [],
+      "permissions": []
+    },
+    {
+      "id": "everything",
+      "name": "Demo & Test",
+      "description": "A reference agent that demonstrates every MCP feature. Useful for testing.",
+      "category": "Utilities",
+      "keywords": ["demo", "test", "example", "reference"],
+      "author": "Model Context Protocol",
+      "homepage": "https://github.com/modelcontextprotocol/servers",
+      "runtime": {
+        "type": "mcp-stdio",
+        "command": "npx",
+        "args": ["-y", "@modelcontextprotocol/server-everything"],
+        "requires": ["node"]
+      },
+      "setup": [],
+      "permissions": []
+    }
+  ]
+}
