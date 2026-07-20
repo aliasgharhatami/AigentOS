@@ -1,4 +1,4 @@
-const CORE_URL = window.aigentos.coreUrl;
+const CORE_URL = (window.aigentos && window.aigentos.coreUrl) || "http://127.0.0.1:4590";
 
 const agentListEl = document.getElementById("agent-list");
 const taskListEl = document.getElementById("task-list");
@@ -17,12 +17,12 @@ async function refreshAgents() {
       const perms = agent.permissionStatus;
       const permBadges =
         perms.declared.length === 0
-          ? '<span class="perm">بدون نیاز به مجوز خاص</span>'
+          ? '<span class="perm">no special permissions required</span>'
           : perms.declared
               .map((p) => {
                 const pending = perms.pending.includes(p);
                 return `<span class="perm ${pending ? "pending" : ""}">${p}${
-                  pending ? " (نیاز به تایید)" : " ✓"
+                  pending ? " (needs approval)" : " ✓"
                 }</span>`;
               })
               .join("");
@@ -30,7 +30,7 @@ async function refreshAgents() {
       const grantButtons = perms.pending
         .map(
           (p) =>
-            `<button class="secondary" onclick="grantPermission('${agent.id}','${p}')">اجازه بده: ${p}</button>`
+            `<button class="secondary" onclick="grantPermission('${agent.id}','${p}')">Grant: ${p}</button>`
         )
         .join("");
 
@@ -41,9 +41,9 @@ async function refreshAgents() {
           <div>${permBadges}</div>
           ${grantButtons ? `<div style="margin-top:8px">${grantButtons}</div>` : ""}
           <div style="margin-top:10px">
-            <textarea id="input-${agent.id}" placeholder="ورودی برای این ایجنت (مثلاً متنی برای خلاصه‌سازی)"></textarea>
+            <textarea id="input-${agent.id}" placeholder="Input for this agent (e.g. text to summarize)"></textarea>
             <div style="margin-top:6px">
-              <button onclick="runAgent('${agent.id}')">اجرا</button>
+              <button onclick="runAgent('${agent.id}')">Run</button>
             </div>
           </div>
         </div>`;
@@ -69,7 +69,7 @@ async function runAgent(agentId) {
 async function refreshTasks() {
   const tasks = await api("/tasks");
   if (tasks.length === 0) {
-    taskListEl.innerHTML = "هنوز وظیفه‌ای اجرا نشده.";
+    taskListEl.innerHTML = "No tasks have run yet.";
     return;
   }
   taskListEl.innerHTML = tasks
@@ -92,10 +92,10 @@ function escapeHtml(str) {
 async function checkCore() {
   try {
     await api("/health");
-    coreStatusEl.innerHTML = '<span class="status-dot status-ok"></span>هسته متصل است';
+    coreStatusEl.innerHTML = '<span class="status-dot status-ok"></span>Core connected';
     return true;
   } catch {
-    coreStatusEl.innerHTML = '<span class="status-dot status-bad"></span>هسته در دسترس نیست — اجرا کنید: npm start در پوشه core';
+    coreStatusEl.innerHTML = '<span class="status-dot status-bad"></span>Core unavailable — run: npm start in the core folder';
     return false;
   }
 }

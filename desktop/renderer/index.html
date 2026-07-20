@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <title>AigentOS</title>
@@ -18,7 +18,7 @@
       justify-content: space-between;
     }
     header h1 { font-size: 18px; margin: 0; }
-    .status-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-left: 6px; }
+    .status-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 6px; }
     .status-ok { background: #3ddc84; }
     .status-bad { background: #ff5c5c; }
     main { padding: 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
@@ -33,11 +33,11 @@
     .agent:last-child { border-bottom: none; }
     .agent-name { font-weight: 600; }
     .agent-desc { color: #9aa1ad; font-size: 13px; margin: 4px 0 8px; }
-    .perm { font-size: 12px; padding: 2px 8px; border-radius: 999px; background: #2a2e38; margin-left: 6px; display: inline-block; }
+    .perm { font-size: 12px; padding: 2px 8px; border-radius: 999px; background: #2a2e38; margin-right: 6px; display: inline-block; }
     .perm.pending { background: #3a2a1a; color: #e0a94f; }
     button {
       background: #3d6bff; color: white; border: none; border-radius: 6px;
-      padding: 6px 14px; font-size: 13px; cursor: pointer; margin-left: 6px;
+      padding: 6px 14px; font-size: 13px; cursor: pointer; margin-right: 6px;
     }
     button.secondary { background: #2a2e38; }
     textarea {
@@ -54,19 +54,19 @@
 </head>
 <body>
   <header>
-    <h1>AigentOS <span style="color:#9aa1ad;font-weight:400">— دسکتاپ</span></h1>
-    <div id="core-status"><span class="status-dot status-bad"></span>در حال اتصال به هسته...</div>
+    <h1>AigentOS <span style="color:#9aa1ad;font-weight:400">— Desktop</span></h1>
+    <div id="core-status"><span class="status-dot status-bad"></span>Connecting to core...</div>
   </header>
 
   <main>
     <section class="card">
-      <h2>ایجنت‌های نصب‌شده</h2>
-      <div id="agent-list">در حال بارگذاری...</div>
+      <h2>Installed Agents</h2>
+      <div id="agent-list">Loading...</div>
     </section>
 
     <section class="card">
-      <h2>وظایف (Task Manager)</h2>
-      <div id="task-list">هنوز وظیفه‌ای اجرا نشده.</div>
+      <h2>Tasks (Task Manager)</h2>
+      <div id="task-list">No tasks have run yet.</div>
     </section>
   </main>
 
