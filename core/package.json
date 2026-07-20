@@ -1,0 +1,18 @@
+{
+  "name": "@aigentos/core",
+  "version": "0.1.0",
+  "description": "AigentOS Core Runtime — the portable kernel that installs, manages permissions for, and executes AI agents. Runs as a standalone local service so any shell (desktop app today, a Linux distro tomorrow) can talk to it over HTTP/WebSocket.",
+  "main": "src/index.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "ws": "^8.17.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "uuid": "^9.0.1"
+  }
+}

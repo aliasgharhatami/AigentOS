@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <title>AigentOS</title>
+  <style>
+    body {
+      font-family: -apple-system, "Segoe UI", Tahoma, sans-serif;
+      margin: 0;
+      background: #0f1115;
+      color: #e7e9ee;
+    }
+    header {
+      padding: 16px 24px;
+      border-bottom: 1px solid #23262e;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    header h1 { font-size: 18px; margin: 0; }
+    .status-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-left: 6px; }
+    .status-ok { background: #3ddc84; }
+    .status-bad { background: #ff5c5c; }
+    main { padding: 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .card {
+      background: #171a21;
+      border: 1px solid #23262e;
+      border-radius: 10px;
+      padding: 16px;
+    }
+    .card h2 { font-size: 14px; text-transform: uppercase; letter-spacing: .05em; color: #9aa1ad; margin: 0 0 12px; }
+    .agent { border-bottom: 1px solid #23262e; padding: 12px 0; }
+    .agent:last-child { border-bottom: none; }
+    .agent-name { font-weight: 600; }
+    .agent-desc { color: #9aa1ad; font-size: 13px; margin: 4px 0 8px; }
+    .perm { font-size: 12px; padding: 2px 8px; border-radius: 999px; background: #2a2e38; margin-left: 6px; display: inline-block; }
+    .perm.pending { background: #3a2a1a; color: #e0a94f; }
+    button {
+      background: #3d6bff; color: white; border: none; border-radius: 6px;
+      padding: 6px 14px; font-size: 13px; cursor: pointer; margin-left: 6px;
+    }
+    button.secondary { background: #2a2e38; }
+    textarea {
+      width: 100%; background: #0f1115; color: #e7e9ee; border: 1px solid #23262e;
+      border-radius: 6px; padding: 8px; box-sizing: border-box; min-height: 70px; font-family: inherit;
+    }
+    .task { border-bottom: 1px solid #23262e; padding: 10px 0; font-size: 13px; }
+    .task-status { font-weight: 600; }
+    .task-status.completed { color: #3ddc84; }
+    .task-status.failed { color: #ff5c5c; }
+    .task-status.running { color: #e0a94f; }
+    pre { white-space: pre-wrap; background: #0f1115; padding: 8px; border-radius: 6px; font-size: 12px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>AigentOS <span style="color:#9aa1ad;font-weight:400">— دسکتاپ</span></h1>
+    <div id="core-status"><span class="status-dot status-bad"></span>در حال اتصال به هسته...</div>
+  </header>
+
+  <main>
+    <section class="card">
+      <h2>ایجنت‌های نصب‌شده</h2>
+      <div id="agent-list">در حال بارگذاری...</div>
+    </section>
+
+    <section class="card">
+      <h2>وظایف (Task Manager)</h2>
+      <div id="task-list">هنوز وظیفه‌ای اجرا نشده.</div>
+    </section>
+  </main>
+
+  <script src="renderer.js"></script>
+</body>
+</html>

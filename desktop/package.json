@@ -1,0 +1,12 @@
+{
+  "name": "aigentos-desktop",
+  "version": "0.1.0",
+  "description": "AigentOS Desktop — the Windows/Mac shell around the AigentOS core runtime. This app is intentionally 'dumb': it renders whatever the core reports and forwards user actions to it. All real logic (permissions, execution) lives in @aigentos/core so this UI layer can be swapped for a native Linux desktop later without touching the runtime.",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "devDependencies": {
+    "electron": "^30.0.0"
+  }
+}

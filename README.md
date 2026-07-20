@@ -1,20 +1,54 @@
 # AigentOS
-The World's First Operating System and Runtime for Autonomous AI Agents.
 
-## Vision & Concept
-AigentOS is not just another AI application or an isolated developer library; it is a vision to build the world's first agent-native operating environment for personal and consumer computers. 
+سیستم‌عاملی برای اجرای ایجنت‌های هوش مصنوعی — نصب و اجرا با چند کلیک، برای کاربر عادی، نه فقط دولوپر.
 
-Just as the advent of traditional operating systems like Windows transformed raw computer hardware into an accessible, user-friendly desktop experience for everyday people without requiring programming skills, AigentOS aims to bridge the gap between powerful autonomous AI agents and the everyday consumer.
+## معماری (چرا این ساختار؟)
 
-## The Problem
-Today, the artificial intelligence landscape is exploding with thousands of specialized AI agents, multi-agent frameworks, and complex backend tools. However, they remain trapped behind developer terminals, complex cloud setups, or rigid chat windows. A non-technical home or office user cannot easily harness this power. There is no simple desktop environment where a regular user can spin up an agent, give it a task, and let it handle workflows ranging from daily entertainment and personal organization to professional tasks.
+پروژه از **روز اول** به دو بخش کاملاً مستقل تقسیم شده تا فردا بشه هسته رو بدون تغییر روی یه توزیع لینوکسی اختصاصی هم سوار کرد و واقعاً جایگزین ویندوز/مک شد:
 
-## The Solution: An Agent-Driven Desktop Experience
-AigentOS is designed to run locally on your computer, providing a seamless, native workspace where users can:
-* **Install and Manage Agents:** Easily add or remove specialized AI agents with just a few clicks, exactly like installing applications on Windows.
-* **Zero Technical Barrier:** Interact with a powerful workforce of synthetic entities through an intuitive graphical interface, requiring zero technical or coding expertise.
-* **Diverse Utility:** Deploy agents tailored for any need—whether it's managing personal entertainment, organizing schedules, handling workflow automation, or assisting with daily tasks.
-* **Local-First and Secure:** Run your agentic environment directly on your local machine with robust permission boundaries and resource management.
+```
+aigentos/
+├── core/       ← هسته‌ی رانتایم (پورتابل، مستقل از UI)
+│   بار اول یک سرویس محلی است که روی http://127.0.0.1:4590 بالا می‌آید.
+│   مسئول: نصب/اجرای ایجنت‌ها، Permission System، Task Manager (تاریخچه‌ی اجرا).
+│   هر UI/شل دیگری (Electron امروز، دسکتاپ لینوکسی فردا) فقط با همین API صحبت می‌کند.
+│
+└── desktop/    ← لایه‌ی نمایشی روی ویندوز/مک (Electron)
+    عمداً "بی‌منطق" است — فقط چیزی که core گزارش می‌دهد را نشان می‌دهد
+    و اکشن‌های کاربر (اجرا، اعطای مجوز) را به core می‌فرستد.
+```
 
-## The Paradigm Shift
-We are moving from an era of "direct software manipulation" (where humans click buttons and open apps) to an "intent-driven era" (where humans state their goals, and a collaborative workforce of agents executes them). AigentOS is the operating layer designed to make this future a reality for every computer user on the planet.
+اصل کلیدی: **همه‌ی منطق و امنیت داخل core است، نه UI.** یک شل خراب یا بدخواه هیچ‌وقت نمی‌تواند مجوزی را که کاربر نداده به خودش بدهد.
+
+## اجرای محلی (برای تست)
+
+### ۱. هسته را بالا بیاورید
+```bash
+cd core
+npm install
+npm start
+# → AigentOS core runtime listening on http://127.0.0.1:4590
+```
+
+بدون هیچ API key ای هم کار می‌کند (حالت mock) — همین الان قابل تست است.
+برای استفاده از مدل واقعی: `core/.env.example` را به `core/.env` کپی کنید و `AIGENTOS_LLM_API_KEY` را پر کنید.
+
+### ۲. اپ دسکتاپ را باز کنید (در یک ترمینال جدید)
+```bash
+cd desktop
+npm install
+npm start
+```
+
+یک پنجره باز می‌شود: لیست ایجنت‌های نصب‌شده (فعلاً یک «ایجنت خلاصه‌ساز» نمونه)، مجوزهای موردنیازش، و یک Task Manager ساده که هر اجرا را با زمان و نتیجه/خطا نشان می‌دهد.
+
+## ایجنت اول: Summarizer
+
+`core/src/agents/summarizerAgent.js` یک نمونه است از اینکه یک "پکیج ایجنت" در کد چه شکلی است — `manifest` (متادیتا + مجوزهای موردنیاز) + تابع `run`. این الگو پایه‌ی فرمت پکیج آینده (`.agent`) خواهد بود.
+
+## قدم‌های بعدی (پیشنهادی)
+
+- [ ] فرمت پکیج `.agent` رسمی (zip حاوی manifest.json + کد)
+- [ ] نصب/حذف ایجنت از پوشه‌ی محلی به‌جای هاردکد در `index.js`
+- [ ] چند ایجنت نمونه‌ی بیشتر (تحقیقاتی، حقوقی) برای نمایش Workflow Engine
+- [ ] بسته‌بندی نصب (installer) برای ویندوز/مک با electron-builder
